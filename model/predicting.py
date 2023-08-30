@@ -33,7 +33,7 @@ def predictLetter(model, image):
     normalizeImage = np.reshape(normalizeImage, (1, 28, 28))
 
     tensorImage = torch.tensor(normalizeImage).unsqueeze(0)
-    tensorImage = input_tensor.to(device)
+    tensorImage = tensorImage.to(device)
 
     with torch.no_grad():
         output = model(tensorImage)
