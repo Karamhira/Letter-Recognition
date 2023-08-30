@@ -1,6 +1,5 @@
 myenv/
 __pycache__/
 model/emnist/
-model/emnist_model.pt
 model/__pycache__
 
