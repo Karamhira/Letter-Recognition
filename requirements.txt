@@ -4,5 +4,4 @@ numpy
 matplotlib
 Pillow
 scikit-learn
-tkinter
-python3-tk
+opencv-python
