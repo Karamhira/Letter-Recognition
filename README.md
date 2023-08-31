@@ -1,8 +1,8 @@
 # Letter-Recognition
 
 # Installation
-## Create a virtual environment (Optional)
-### Command 
+### Create a virtual environment (Optional)
+#### Command 
 ```bash
 python3 -m venv venv
 ```
@@ -12,12 +12,7 @@ python3 -m venv venv
 source venv/bin/activate 
 ```
 
-## Install the nessary python packages
-```bash 
-pip install -r requirements.txt
-```
-
-## Start Flask app 
+### Install the nessary python packages
 ```bash 
 pip install -r requirements.txt
 ```
