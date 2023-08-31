@@ -15,7 +15,7 @@ import matplotlib
 matplotlib.use('TkAgg')
 
 
-def load_emnist_data():
+def emnistData():
     dataSet = torchvision.datasets.EMNIST(
         root='./emnist',
         split='letters',
@@ -25,8 +25,7 @@ def load_emnist_data():
     letterCategories = dataSet.classes[1:]
     labels = copy.deepcopy(dataSet.targets) - 1
     torch.unique(labels)
-    target_to_label = {target: letter for target,
-                       letter in enumerate(letterCategories)}
+
     images = dataSet.data.view([124800, 1, 28, 28]).float()
 
     images /= 255.0
@@ -34,18 +33,18 @@ def load_emnist_data():
     batch_size = 32
     loader = torch.utils.data.DataLoader(
         dataSet, batch_size=batch_size, shuffle=True)
-    train_data, test_data, train_labels, test_labels = train_test_split(
+    trainData, testData, trainLabels, testLabels = train_test_split(
         images, labels, test_size=0.2)
 
-    train_data = TensorDataset(train_data, train_labels)
-    test_data = TensorDataset(test_data, test_labels)
+    trainData = TensorDataset(trainData, trainLabels)
+    testData = TensorDataset(testData, testLabels)
 
-    train_loader = torch.utils.data.DataLoader(
-        train_data, batch_size=batch_size, shuffle=True)
-    test_loader = torch.utils.data.DataLoader(
-        test_data, batch_size=batch_size, shuffle=True)
+    trainLoader = torch.utils.data.DataLoader(
+        trainData, batch_size=batch_size, shuffle=True)
+    testLoader = torch.utils.data.DataLoader(
+        testData, batch_size=batch_size, shuffle=True)
 
-    return train_loader, test_loader
+    return trainLoader, testLoader
 
 
 class emnistNet(nn.Module):
@@ -76,7 +75,7 @@ class emnistNet(nn.Module):
         return output
 
 
-def train_model(model, train_loader, test_loader, num_epochs=10, learning_rate=0.001):
+def trainModel(model, trainLoader, testLoader, numEpochs=10, learning_rate=0.001):
     device = (
         "cuda"
         if torch.cuda.is_available()
@@ -90,13 +89,13 @@ def train_model(model, train_loader, test_loader, num_epochs=10, learning_rate=0
     loss_fn = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-    for epoch in range(num_epochs):
+    for epoch in range(numEpochs):
         model.train()
-        for batch_idx, (features, targets) in enumerate(train_loader):
+        for batch_idx, (features, targets) in enumerate(trainLoader):
             features, targets = features.to(device), targets.to(device)
             optimizer.zero_grad()
-            forward_pass_outputs = model(features)
-            loss = loss_fn(forward_pass_outputs, targets)
+            forwardPassOutputs = model(features)
+            loss = loss_fn(forwardPassOutputs, targets)
             loss.backward()
             optimizer.step()
 
@@ -104,7 +103,7 @@ def train_model(model, train_loader, test_loader, num_epochs=10, learning_rate=0
         correct = 0
         total = 0
         with torch.no_grad():
-            for features, targets in test_loader:
+            for features, targets in testLoader:
                 features, targets = features.to(device), targets.to(device)
                 outputs = model(features)
                 _, predicted = torch.max(outputs.data, 1)
@@ -112,11 +111,11 @@ def train_model(model, train_loader, test_loader, num_epochs=10, learning_rate=0
                 correct += (predicted == targets).sum().item()
         accuracy = correct / total
         print(
-            f"Epoch [{epoch+1}/{num_epochs}] Loss: {loss:.4f} Accuracy: {accuracy:.4f}")
+            f"Epoch [{epoch+1}/{numEpochs}] Loss: {loss:.4f} Accuracy: {accuracy:.4f}")
 
 
 if __name__ == "__main__":
-    train_loader, test_loader = load_emnist_data()
+    trainLoader, testLoader = emnistData()
     model = emnistNet()
-    train_model(model, train_loader, test_loader)
-    torch.save(model.state_dict(), 'emnist_model.pt')
+    trainModel(model, trainLoader, testLoader)
+    torch.save(model.state_dict(), 'emnistModel.pt')

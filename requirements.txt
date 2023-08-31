@@ -6,3 +6,4 @@ Pillow
 scikit-learn
 opencv-python
 imageio
+Flask

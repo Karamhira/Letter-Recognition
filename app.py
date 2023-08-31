@@ -33,7 +33,7 @@ def index():
 def predictLetterRoute():
     output = ""
     model = emnistNet()
-    model.load_state_dict(torch.load('./model/emnist_model.pt'))
+    model.load_state_dict(torch.load('./model/emnistModel.pt'))
     model.eval()
 
     if request.method == 'POST':
