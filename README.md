@@ -1,7 +1,13 @@
 # Letter-Recognition
 
 ## Create a virtual environment (Optional)
+### Command 
+```bash
 python3 -m venv venv
+```
 
 #### Activate the virtual environment
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+```bash
+source venv/bin/activate 
+```
+
