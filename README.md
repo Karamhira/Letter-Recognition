@@ -1,5 +1,7 @@
 # Letter-Recognition
 
+"Letter-Recognition" is a web application that allows users to draw either an uppercase or lowercase letter on the canvas. It uses  a convolutional neural network trtrained using PyTorch  to accurately predict the drawn letter.
+
 ## Getting Started
 #### 1) Clone the repository
 ```bash
