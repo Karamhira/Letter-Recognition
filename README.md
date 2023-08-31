@@ -12,7 +12,11 @@ source venv/bin/activate
 ```
 
 ## Install the nessary python packages
-```bash pip install -r requirements.txt```
+```bash 
+pip install -r requirements.txt
+```
 
 ## Start Flask app 
-```bash pip install -r requirements.txt```
+```bash 
+pip install -r requirements.txt
+```
