@@ -23,7 +23,7 @@ source venv/bin/activate
 ```
 
 ### Install the necessary python packages
-#### Run this command, it will install the all the packages required.
+#### 1) Run this command, it will install the all the packages required.
 ```bash 
 pip install -r requirements.txt
 ```
