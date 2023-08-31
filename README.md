@@ -1,6 +1,6 @@
 # Letter-Recognition
 
-#Installation
+# Installation
 ## Create a virtual environment (Optional)
 ### Command 
 ```bash
